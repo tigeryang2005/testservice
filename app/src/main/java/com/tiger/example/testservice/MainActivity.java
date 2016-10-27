@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private Button bindServiceButton;
     private Button unbindServiceButton;
+    private Button startIntentService;
     private MyServiece.DownlaodBinder downlaodBinder;
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         stopServiceButton = (Button) findViewById(R.id.stop_service);
         bindServiceButton = (Button) findViewById(R.id.bind_service);
         unbindServiceButton = (Button) findViewById(R.id.unbind_service);
+        startIntentService = (Button) findViewById(R.id.start_intent_service);
         context = this.getApplicationContext();
         startServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 unbindService(connection);
+            }
+        });
+        startIntentService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //打印主线程id
+                Log.d(TAG, "onClick: Thread id is " + Thread.currentThread().getId());
+                Intent intentService = new Intent(context, MyIntentService.class);
+                startService(intentService);
             }
         });
     }
