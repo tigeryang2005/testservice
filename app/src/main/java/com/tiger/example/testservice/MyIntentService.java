@@ -40,10 +40,19 @@ public class MyIntentService extends IntentService {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            Intent intent1 = new Intent(this, SecActivity.class);
+            //下边这三个是官方教程上面的代码
+//            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//            // Adds the back stack
+//            stackBuilder.addParentStack(SecActivity.class);
+//            // Adds the Intent to the top of the stack
+//            stackBuilder.addNextIntent(intent1);
+//            // Gets a PendingIntent containing the entire back stack
+            pendingIntent = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentTitle("测试标题")
                     .setContentText("测试内容")
                     //  .setNumber(number) //设置通知集合的数量
-                    .setContentIntent(pendingIntent)//设置通知栏点击意图 可以加一个别的activity
+                    .setContentIntent(pendingIntent)//设置通知栏点击意图   
                     .setTicker("测试通知来了")//通知首次出现在通知栏，带上升动画效果
                     .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
                     .setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级

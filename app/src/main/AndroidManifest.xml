@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SecActivity" />
         <service android:name=".MyServiece" />
         <service android:name=".MyIntentService" />
 
